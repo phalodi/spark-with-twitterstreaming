@@ -11,6 +11,8 @@ object Tutorial extends App{
   val client=new twitterclient()
   val tweetauth=client.start()
   val inputDstream=TwitterUtils.createStream(ssc, Option(tweetauth.getAuthorization))
+
+
   val statuses= inputDstream.map { x => x.getText }
   val lines=statuses.flatMap { x => x.split("\n") }
   val words=statuses.flatMap { x => x.split(" ") }
@@ -18,4 +20,5 @@ object Tutorial extends App{
   hastag.saveAsTextFiles("tweets")
   ssc.start()             
   ssc.awaitTermination()
+
 }
